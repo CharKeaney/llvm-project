@@ -342,10 +342,10 @@ lldb::offset_t lldb_private::DumpDataExtractor(
     const DataExtractor &DE, Stream *s, offset_t start_offset,
     lldb::Format item_format, size_t item_byte_size, size_t item_count,
     size_t num_per_line, uint64_t base_addr,
-    uint32_t item_bit_size,   // If zero, this is not a bitfield value, if
-                              // non-zero, the value is a bitfield
-    uint32_t item_bit_offset, // If "item_bit_size" is non-zero, this is the
-                              // shift amount to apply to a bitfield
+    uint32_t item_bit_size,  // If zero, this is not a bitfield value, if
+                             // non-zero, the value is a bitfield
+    int32_t item_bit_offset, // If "item_bit_size" is non-zero, this is the
+                             // shift amount to apply to a bitfield
     ExecutionContextScope *exe_scope, bool show_memory_tags) {
   if (s == nullptr)
     return start_offset;

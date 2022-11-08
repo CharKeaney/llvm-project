@@ -5651,7 +5651,7 @@ uint32_t TypeSystemClang::GetNumFields(lldb::opaque_compiler_type_t type) {
 static lldb::opaque_compiler_type_t
 GetObjCFieldAtIndex(clang::ASTContext *ast,
                     clang::ObjCInterfaceDecl *class_interface_decl, size_t idx,
-                    std::string &name, uint64_t *bit_offset_ptr,
+                    std::string &name, int64_t *bit_offset_ptr,
                     uint32_t *bitfield_bit_size_ptr, bool *is_bitfield_ptr) {
   if (class_interface_decl) {
     if (idx < (class_interface_decl->ivar_size())) {
@@ -5702,7 +5702,7 @@ GetObjCFieldAtIndex(clang::ASTContext *ast,
 
 CompilerType TypeSystemClang::GetFieldAtIndex(lldb::opaque_compiler_type_t type,
                                               size_t idx, std::string &name,
-                                              uint64_t *bit_offset_ptr,
+                                              int64_t *bit_offset_ptr,
                                               uint32_t *bitfield_bit_size_ptr,
                                               bool *is_bitfield_ptr) {
   if (!type)
@@ -5876,7 +5876,7 @@ TypeSystemClang::GetNumVirtualBaseClasses(lldb::opaque_compiler_type_t type) {
 }
 
 CompilerType TypeSystemClang::GetDirectBaseClassAtIndex(
-    lldb::opaque_compiler_type_t type, size_t idx, uint32_t *bit_offset_ptr) {
+    lldb::opaque_compiler_type_t type, size_t idx, int32_t *bit_offset_ptr) {
   clang::QualType qual_type = RemoveWrappingTypes(GetCanonicalQualType(type));
   const clang::Type::TypeClass type_class = qual_type->getTypeClass();
   switch (type_class) {
@@ -5971,7 +5971,7 @@ CompilerType TypeSystemClang::GetDirectBaseClassAtIndex(
 }
 
 CompilerType TypeSystemClang::GetVirtualBaseClassAtIndex(
-    lldb::opaque_compiler_type_t type, size_t idx, uint32_t *bit_offset_ptr) {
+    lldb::opaque_compiler_type_t type, size_t idx, int32_t *bit_offset_ptr) {
   clang::QualType qual_type = RemoveWrappingTypes(GetCanonicalQualType(type));
   const clang::Type::TypeClass type_class = qual_type->getTypeClass();
   switch (type_class) {
@@ -6156,7 +6156,7 @@ CompilerType TypeSystemClang::GetChildCompilerTypeAtIndex(
     bool transparent_pointers, bool omit_empty_base_classes,
     bool ignore_array_bounds, std::string &child_name,
     uint32_t &child_byte_size, int32_t &child_byte_offset,
-    uint32_t &child_bitfield_bit_size, uint32_t &child_bitfield_bit_offset,
+    uint32_t &child_bitfield_bit_size, int32_t &child_bitfield_bit_offset,
     bool &child_is_base_class, bool &child_is_deref_of_parent,
     ValueObject *valobj, uint64_t &language_flags) {
   if (!type)
@@ -6297,7 +6297,7 @@ CompilerType TypeSystemClang::GetChildCompilerTypeAtIndex(
           bit_offset = record_layout.getFieldOffset(field_idx);
           if (FieldIsBitfield(*field, child_bitfield_bit_size)) {
             child_bitfield_bit_offset = bit_offset % child_bit_size;
-            const uint32_t child_bit_offset =
+            const int32_t child_bit_offset =
                 bit_offset - child_bitfield_bit_offset;
             child_byte_offset = child_bit_offset / 8;
           } else {
@@ -8532,7 +8532,7 @@ void TypeSystemClang::DumpValue(
     lldb::opaque_compiler_type_t type, ExecutionContext *exe_ctx, Stream *s,
     lldb::Format format, const lldb_private::DataExtractor &data,
     lldb::offset_t data_byte_offset, size_t data_byte_size,
-    uint32_t bitfield_bit_size, uint32_t bitfield_bit_offset, bool show_types,
+    uint32_t bitfield_bit_size, int32_t bitfield_bit_offset, bool show_types,
     bool show_summary, bool verbose, uint32_t depth) {
   if (!type)
     return;
@@ -8545,8 +8545,8 @@ void TypeSystemClang::DumpValue(
           llvm::cast<clang::RecordType>(qual_type.getTypePtr());
       const clang::RecordDecl *record_decl = record_type->getDecl();
       assert(record_decl);
-      uint32_t field_bit_offset = 0;
-      uint32_t field_byte_offset = 0;
+      int32_t field_bit_offset = 0;
+      int32_t field_byte_offset = 0;
       const clang::ASTRecordLayout &record_layout =
           getASTContext().getASTRecordLayout(record_decl);
       uint32_t child_idx = 0;
@@ -8645,7 +8645,7 @@ void TypeSystemClang::DumpValue(
         field_bit_offset = record_layout.getFieldOffset(field_idx);
         field_byte_offset = field_bit_offset / 8;
         uint32_t field_bitfield_bit_size = 0;
-        uint32_t field_bitfield_bit_offset = 0;
+        int32_t field_bitfield_bit_offset = 0;
         if (FieldIsBitfield(*field, field_bitfield_bit_size))
           field_bitfield_bit_offset = field_bit_offset % 8;
 
@@ -8904,7 +8904,7 @@ void TypeSystemClang::DumpValue(
 
 static bool DumpEnumValue(const clang::QualType &qual_type, Stream *s,
                           const DataExtractor &data, lldb::offset_t byte_offset,
-                          size_t byte_size, uint32_t bitfield_bit_offset,
+                          size_t byte_size, int32_t bitfield_bit_offset,
                           uint32_t bitfield_bit_size) {
   const clang::EnumType *enutype =
       llvm::cast<clang::EnumType>(qual_type.getTypePtr());
@@ -8985,7 +8985,7 @@ static bool DumpEnumValue(const clang::QualType &qual_type, Stream *s,
 bool TypeSystemClang::DumpTypeValue(
     lldb::opaque_compiler_type_t type, Stream *s, lldb::Format format,
     const lldb_private::DataExtractor &data, lldb::offset_t byte_offset,
-    size_t byte_size, uint32_t bitfield_bit_size, uint32_t bitfield_bit_offset,
+    size_t byte_size, uint32_t bitfield_bit_size, int32_t bitfield_bit_offset,
     ExecutionContextScope *exe_scope) {
   if (!type)
     return false;

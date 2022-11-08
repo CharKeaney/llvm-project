@@ -91,7 +91,7 @@ lldb::offset_t
 DumpDataExtractor(const DataExtractor &DE, Stream *s, lldb::offset_t offset,
                   lldb::Format item_format, size_t item_byte_size,
                   size_t item_count, size_t num_per_line, uint64_t base_addr,
-                  uint32_t item_bit_size, uint32_t item_bit_offset,
+                  uint32_t item_bit_size, int32_t item_bit_offset,
                   ExecutionContextScope *exe_scope = nullptr,
                   bool show_memory_tags = false);
 

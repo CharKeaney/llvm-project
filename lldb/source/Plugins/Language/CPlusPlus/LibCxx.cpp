@@ -278,7 +278,7 @@ bool lldb_private::formatters::LibCxxMapIteratorSyntheticFrontEnd::Update() {
       CompilerType pair_type(
           __i_->GetCompilerType().GetTypeTemplateArgument(0));
       std::string name;
-      uint64_t bit_offset_ptr;
+      int64_t bit_offset_ptr;
       uint32_t bitfield_bit_size_ptr;
       bool is_bitfield_ptr;
       pair_type = pair_type.GetFieldAtIndex(
@@ -443,7 +443,7 @@ bool lldb_private::formatters::LibCxxUnorderedMapIteratorSyntheticFrontEnd::
     CompilerType pair_type(node_type.GetTypeTemplateArgument(0));
 
     std::string name;
-    uint64_t bit_offset_ptr;
+    int64_t bit_offset_ptr;
     uint32_t bitfield_bit_size_ptr;
     bool is_bitfield_ptr;
 

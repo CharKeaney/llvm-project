@@ -50,7 +50,7 @@ public:
 
     for (size_t idx = 0; idx < struct_type.GetNumFields(); idx++) {
       std::string name;
-      uint64_t bit_offset;
+      int64_t bit_offset;
       uint32_t bitfield_bit_size;
       bool is_bitfield;
       CompilerType field_type = struct_type.GetFieldAtIndex(

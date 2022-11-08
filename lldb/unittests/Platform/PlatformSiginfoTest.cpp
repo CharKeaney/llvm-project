@@ -59,7 +59,7 @@ public:
     CompilerType field_type = siginfo_type;
     uint64_t total_offset = 0;
     for (auto field_name : llvm::split(path, '.')) {
-      uint64_t bit_offset;
+      int64_t bit_offset;
       ASSERT_NE(field_type.GetIndexOfFieldWithName(field_name.str().c_str(),
                                                    &field_type, &bit_offset),
                 UINT32_MAX);

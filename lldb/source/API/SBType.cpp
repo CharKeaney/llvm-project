@@ -412,7 +412,7 @@ SBTypeMember SBType::GetDirectBaseClassAtIndex(uint32_t idx) {
 
   SBTypeMember sb_type_member;
   if (IsValid()) {
-    uint32_t bit_offset = 0;
+    int32_t bit_offset = 0;
     CompilerType base_class_type =
         m_opaque_sp->GetCompilerType(true).GetDirectBaseClassAtIndex(
             idx, &bit_offset);
@@ -428,7 +428,7 @@ SBTypeMember SBType::GetVirtualBaseClassAtIndex(uint32_t idx) {
 
   SBTypeMember sb_type_member;
   if (IsValid()) {
-    uint32_t bit_offset = 0;
+    int32_t bit_offset = 0;
     CompilerType base_class_type =
         m_opaque_sp->GetCompilerType(true).GetVirtualBaseClassAtIndex(
             idx, &bit_offset);
@@ -468,7 +468,7 @@ SBTypeMember SBType::GetFieldAtIndex(uint32_t idx) {
   if (IsValid()) {
     CompilerType this_type(m_opaque_sp->GetCompilerType(false));
     if (this_type.IsValid()) {
-      uint64_t bit_offset = 0;
+      int64_t bit_offset = 0;
       uint32_t bitfield_bit_size = 0;
       bool is_bitfield = false;
       std::string name_sstr;
@@ -730,9 +730,9 @@ bool SBTypeMember::GetDescription(lldb::SBStream &description,
   Stream &strm = description.ref();
 
   if (m_opaque_up) {
-    const uint32_t bit_offset = m_opaque_up->GetBitOffset();
-    const uint32_t byte_offset = bit_offset / 8u;
-    const uint32_t byte_bit_offset = bit_offset % 8u;
+    const int32_t bit_offset = m_opaque_up->GetBitOffset();
+    const int32_t byte_offset = bit_offset / 8u;
+    const int32_t byte_bit_offset = bit_offset % 8u;
     const char *name = m_opaque_up->GetName().GetCString();
     if (byte_bit_offset)
       strm.Printf("+%u + %u bits: (", byte_offset, byte_bit_offset);

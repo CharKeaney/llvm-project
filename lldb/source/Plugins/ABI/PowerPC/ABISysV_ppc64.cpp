@@ -906,7 +906,7 @@ private:
     // GetChild output params
     int32_t child_offs;
     uint32_t child_bitfield_bit_size;
-    uint32_t child_bitfield_bit_offset;
+    int32_t child_bitfield_bit_offset;
     bool child_is_base_class;
     bool child_is_deref_of_parent;
     ValueObject *valobj = nullptr;

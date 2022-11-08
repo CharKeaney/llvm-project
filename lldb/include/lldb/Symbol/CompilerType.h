@@ -294,7 +294,7 @@ public:
   uint32_t GetNumFields() const;
 
   CompilerType GetFieldAtIndex(size_t idx, std::string &name,
-                               uint64_t *bit_offset_ptr,
+                               int64_t *bit_offset_ptr,
                                uint32_t *bitfield_bit_size_ptr,
                                bool *is_bitfield_ptr) const;
 
@@ -303,14 +303,14 @@ public:
   uint32_t GetNumVirtualBaseClasses() const;
 
   CompilerType GetDirectBaseClassAtIndex(size_t idx,
-                                         uint32_t *bit_offset_ptr) const;
+                                         int32_t *bit_offset_ptr) const;
 
   CompilerType GetVirtualBaseClassAtIndex(size_t idx,
-                                          uint32_t *bit_offset_ptr) const;
+                                          int32_t *bit_offset_ptr) const;
 
   uint32_t GetIndexOfFieldWithName(const char *name,
                                    CompilerType *field_compiler_type = nullptr,
-                                   uint64_t *bit_offset_ptr = nullptr,
+                                   int64_t *bit_offset_ptr = nullptr,
                                    uint32_t *bitfield_bit_size_ptr = nullptr,
                                    bool *is_bitfield_ptr = nullptr) const;
 
@@ -319,7 +319,7 @@ public:
       bool omit_empty_base_classes, bool ignore_array_bounds,
       std::string &child_name, uint32_t &child_byte_size,
       int32_t &child_byte_offset, uint32_t &child_bitfield_bit_size,
-      uint32_t &child_bitfield_bit_offset, bool &child_is_base_class,
+      int32_t &child_bitfield_bit_offset, bool &child_is_base_class,
       bool &child_is_deref_of_parent, ValueObject *valobj,
       uint64_t &language_flags) const;
 
@@ -379,12 +379,12 @@ public:
   void DumpValue(ExecutionContext *exe_ctx, Stream *s, lldb::Format format,
                  const DataExtractor &data, lldb::offset_t data_offset,
                  size_t data_byte_size, uint32_t bitfield_bit_size,
-                 uint32_t bitfield_bit_offset, bool show_types,
+                 int32_t bitfield_bit_offset, bool show_types,
                  bool show_summary, bool verbose, uint32_t depth);
 
   bool DumpTypeValue(Stream *s, lldb::Format format, const DataExtractor &data,
                      lldb::offset_t data_offset, size_t data_byte_size,
-                     uint32_t bitfield_bit_size, uint32_t bitfield_bit_offset,
+                     uint32_t bitfield_bit_size, int32_t bitfield_bit_offset,
                      ExecutionContextScope *exe_scope);
 
   void DumpSummary(ExecutionContext *exe_ctx, Stream *s,

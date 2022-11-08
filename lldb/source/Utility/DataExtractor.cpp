@@ -572,7 +572,7 @@ int64_t DataExtractor::GetMaxS64(offset_t *offset_ptr, size_t byte_size) const {
 
 uint64_t DataExtractor::GetMaxU64Bitfield(offset_t *offset_ptr, size_t size,
                                           uint32_t bitfield_bit_size,
-                                          uint32_t bitfield_bit_offset) const {
+                                          int32_t bitfield_bit_offset) const {
   assert(bitfield_bit_size <= 64);
   uint64_t uval64 = GetMaxU64(offset_ptr, size);
 
@@ -581,10 +581,12 @@ uint64_t DataExtractor::GetMaxU64Bitfield(offset_t *offset_ptr, size_t size,
 
   int32_t lsbcount = bitfield_bit_offset;
   if (m_byte_order == eByteOrderBig)
-    lsbcount = size * 8 - bitfield_bit_offset - bitfield_bit_size;
+    lsbcount = size * 8 - bitfield_bit_offset - static_cast<int32_t>(bitfield_bit_size);
 
   if (lsbcount > 0)
     uval64 >>= lsbcount;
+  else
+    uval64 <<= -lsbcount;
 
   uint64_t bitfield_mask =
       (bitfield_bit_size == 64
@@ -600,7 +602,8 @@ uint64_t DataExtractor::GetMaxU64Bitfield(offset_t *offset_ptr, size_t size,
 
 int64_t DataExtractor::GetMaxS64Bitfield(offset_t *offset_ptr, size_t size,
                                          uint32_t bitfield_bit_size,
-                                         uint32_t bitfield_bit_offset) const {
+                                         int32_t bitfield_bit_offset) const {
+  assert(bitfield_bit_size <= 64);
   assert(size >= 1 && "GetMaxS64Bitfield size must be >= 1");
   assert(size <= 8 && "GetMaxS64Bitfield size must be <= 8");
   int64_t sval64 = GetMaxS64(offset_ptr, size);
@@ -608,7 +611,7 @@ int64_t DataExtractor::GetMaxS64Bitfield(offset_t *offset_ptr, size_t size,
     return sval64;
   int32_t lsbcount = bitfield_bit_offset;
   if (m_byte_order == eByteOrderBig)
-    lsbcount = size * 8 - bitfield_bit_offset - bitfield_bit_size;
+    lsbcount = size * 8 - bitfield_bit_offset - static_cast<int32_t>(bitfield_bit_size);
   if (lsbcount > 0)
     sval64 >>= lsbcount;
   uint64_t bitfield_mask = llvm::maskTrailingOnes<uint64_t>(bitfield_bit_size);
