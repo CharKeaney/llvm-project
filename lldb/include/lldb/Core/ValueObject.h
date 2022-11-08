@@ -423,7 +423,7 @@ public:
 
   virtual uint32_t GetBitfieldBitSize() { return 0; }
 
-  virtual uint32_t GetBitfieldBitOffset() { return 0; }
+  virtual int32_t GetBitfieldBitOffset() { return 0; }
 
   bool IsBitfield() {
     return (GetBitfieldBitSize() != 0) || (GetBitfieldBitOffset() != 0);

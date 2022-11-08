@@ -539,7 +539,7 @@ ValueObject *ValueObject::CreateChildAtIndex(size_t idx,
   uint32_t child_byte_size = 0;
   int32_t child_byte_offset = 0;
   uint32_t child_bitfield_bit_size = 0;
-  uint32_t child_bitfield_bit_offset = 0;
+  int32_t child_bitfield_bit_offset = 0;
   bool child_is_base_class = false;
   bool child_is_deref_of_parent = false;
   uint64_t language_flags = 0;
@@ -2643,7 +2643,7 @@ ValueObjectSP ValueObject::Dereference(Status &error) {
     uint32_t child_byte_size = 0;
     int32_t child_byte_offset = 0;
     uint32_t child_bitfield_bit_size = 0;
-    uint32_t child_bitfield_bit_offset = 0;
+    int32_t child_bitfield_bit_offset = 0;
     bool child_is_base_class = false;
     bool child_is_deref_of_parent = false;
     const bool transparent_pointers = false;

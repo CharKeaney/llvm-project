@@ -270,7 +270,7 @@ bool lldb_private::formatters::LibcxxStdMapSyntheticFrontEnd::GetDataType() {
                        .GetTypeTemplateArgument(1);
   if (m_element_type) {
     std::string name;
-    uint64_t bit_offset_ptr;
+    int64_t bit_offset_ptr;
     uint32_t bitfield_bit_size_ptr;
     bool is_bitfield_ptr;
     m_element_type = m_element_type.GetFieldAtIndex(
@@ -290,7 +290,7 @@ void lldb_private::formatters::LibcxxStdMapSyntheticFrontEnd::GetValueOffset(
   if (!node)
     return;
   CompilerType node_type(node->GetCompilerType());
-  uint64_t bit_offset;
+  int64_t bit_offset;
   if (node_type.GetIndexOfFieldWithName("__value_", nullptr, &bit_offset) !=
       UINT32_MAX) {
     m_skip_size = bit_offset / 8u;
@@ -310,7 +310,7 @@ void lldb_private::formatters::LibcxxStdMapSyntheticFrontEnd::GetValueOffset(
     uint32_t child_byte_size;
     int32_t child_byte_offset = 0;
     uint32_t child_bitfield_bit_size;
-    uint32_t child_bitfield_bit_offset;
+    int32_t child_bitfield_bit_offset;
     bool child_is_base_class;
     bool child_is_deref_of_parent;
     uint64_t language_flags;

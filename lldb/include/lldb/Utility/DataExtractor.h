@@ -546,7 +546,7 @@ public:
   ///     zero on failure.
   uint64_t GetMaxU64Bitfield(lldb::offset_t *offset_ptr, size_t size,
                              uint32_t bitfield_bit_size,
-                             uint32_t bitfield_bit_offset) const;
+                             int32_t bitfield_bit_offset) const;
 
   /// Extract an signed integer of size \a size from \a *offset_ptr, then
   /// extract and sign-extend the bitfield from this value if \a
@@ -584,7 +584,7 @@ public:
   ///     zero on failure.
   int64_t GetMaxS64Bitfield(lldb::offset_t *offset_ptr, size_t size,
                             uint32_t bitfield_bit_size,
-                            uint32_t bitfield_bit_offset) const;
+                            int32_t bitfield_bit_offset) const;
 
   /// Get the current byte order value.
   ///

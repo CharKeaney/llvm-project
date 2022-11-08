@@ -36,7 +36,7 @@ public:
 
   uint32_t GetBitfieldBitSize() override { return m_bitfield_bit_size; }
 
-  uint32_t GetBitfieldBitOffset() override { return m_bitfield_bit_offset; }
+  int32_t GetBitfieldBitOffset() override { return m_bitfield_bit_offset; }
 
   lldb::ValueType GetValueType() const override;
 
@@ -66,7 +66,7 @@ protected:
   uint64_t m_byte_size;
   int32_t m_byte_offset;
   uint8_t m_bitfield_bit_size;
-  uint8_t m_bitfield_bit_offset;
+  int8_t m_bitfield_bit_offset;
   bool m_is_base_class;
   bool m_is_deref_of_parent;
   llvm::Optional<LazyBool> m_can_update_with_invalid_exe_ctx;
@@ -78,7 +78,7 @@ protected:
   ValueObjectChild(ValueObject &parent, const CompilerType &compiler_type,
                    ConstString name, uint64_t byte_size,
                    int32_t byte_offset, uint32_t bitfield_bit_size,
-                   uint32_t bitfield_bit_offset, bool is_base_class,
+                   int32_t bitfield_bit_offset, bool is_base_class,
                    bool is_deref_of_parent,
                    AddressType child_ptr_or_ref_addr_type,
                    uint64_t language_flags);

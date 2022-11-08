@@ -344,7 +344,7 @@ lldb::offset_t lldb_private::DumpDataExtractor(
     size_t num_per_line, uint64_t base_addr,
     uint32_t item_bit_size,   // If zero, this is not a bitfield value, if
                               // non-zero, the value is a bitfield
-    uint32_t item_bit_offset, // If "item_bit_size" is non-zero, this is the
+    int32_t item_bit_offset, // If "item_bit_size" is non-zero, this is the
                               // shift amount to apply to a bitfield
     ExecutionContextScope *exe_scope, bool show_memory_tags) {
   if (s == nullptr)

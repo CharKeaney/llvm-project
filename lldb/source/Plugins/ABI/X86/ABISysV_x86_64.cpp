@@ -584,7 +584,7 @@ static bool FlattenAggregateType(
     uint32_t count;
     bool is_complex;
 
-    uint64_t field_bit_offset = 0;
+    int64_t field_bit_offset = 0;
     CompilerType field_compiler_type = return_compiler_type.GetFieldAtIndex(
         idx, name, &field_bit_offset, nullptr, nullptr);
     llvm::Optional<uint64_t> field_bit_width =
@@ -595,7 +595,7 @@ static bool FlattenAggregateType(
       return false;
     }
 
-    uint32_t field_byte_offset = field_bit_offset / 8 + data_byte_offset;
+    int32_t field_byte_offset = field_bit_offset / 8 + data_byte_offset;
 
     const uint32_t field_type_flags = field_compiler_type.GetTypeInfo();
     if (field_compiler_type.IsIntegerOrEnumerationType(is_signed) ||
